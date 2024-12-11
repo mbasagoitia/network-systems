@@ -4,7 +4,7 @@ We need to coordinate between nodes to regulate access to the shared medium.
 
 If we don't regulate access, we may get **interference.** Signals collide and no data can be usefully transmitted.
 
-How do we share the link fiarly and efficiently?
+How do we share the link fairly and efficiently?
 
 - Channel partitioning
     - Divide the link into smaller pieces and assign to each node
