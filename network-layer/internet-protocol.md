@@ -52,4 +52,4 @@ Subnets can be combined.
 
 Ex.
 
-- 1.1.0.0/24 and 1.1.1.0/24 can aggregate as 1.1.0.0/23 -> creates a larger grouping and creates a hierarchy
+- 1.1.0.0/24 and 1.1.1.0/24 can aggregate as 1.1.0.0/23 -> creates a larger grouping and thus a hierarchy
