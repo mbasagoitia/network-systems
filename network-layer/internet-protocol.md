@@ -16,7 +16,7 @@ Reasoning: interconnecting different link layers, so needs to be lowest common d
 
 ## Addressing in IP
 
-Each interface gets and IP address
+Each interface gets an IP address
 
 - IPv4: 32 bits in dotted decimal (4 groupings of 8 bits; each 8 bits gets decimal number between 0-255)
 - IPv6: 128 bits in hextets (16 bits) separated by a colon (8 groups of 16 bits)
