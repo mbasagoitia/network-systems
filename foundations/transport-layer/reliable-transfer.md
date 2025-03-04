@@ -35,5 +35,5 @@ Sender may be able to send at higher rates than the receiver can accept
 Goal: make it so that the sender cannot overwhelm the receiver through **flow control**
 
 - TCP receiver "advertises" free buffer space in rwnd (receive window) field in TCP header
-- Sender limits amount of unackknowledged ("in-flight") data to receiver rwnd
+- Sender limits amount of unacknowledged ("in-flight") data to receiver rwnd
 - Window size field: how many bytes the host is currently able to receive
