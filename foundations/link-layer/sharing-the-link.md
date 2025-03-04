@@ -7,6 +7,7 @@ If we don't regulate access, we may get **interference.** Signals collide and no
 How do we share the link fairly and efficiently?
 
 - Channel partitioning
+
     - Divide the link into smaller pieces and assign to each node
     - TDMA: Time division multiple access, where nodes can only send information during their time slots
     - FDMA: Frequency division multiple access, where we divide frequency spectrum and assign each node its own frequency
