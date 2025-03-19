@@ -61,3 +61,42 @@ In host
 Inside of kind-worker container
     - journalctl -u kubelet
     - cat /var/log/nppnet.log
+
+Need to make the file executable
+- chmod +x nppnet-skel
+
+## Real Network Plugin
+
+What our plugin needs to do:
+
+- Allocate IP address
+- Create entry in /var/run/netns/ (for ip netns)
+- Create veth pair
+- Put veth into namespace
+- Set up networking within the namespace (address, route)
+
+Steps:
+
+Setup:
+
+- Make tmp/w1 and tmp/w2 directories for mounting
+- Create a cluster: kind create cluster --config ./cluster-configs/1master2workerMount.yaml
+- Set labels: kubectl label node kind-worker node=node1/node2
+
+Network plugin installation
+- Put config in /etc/cni/net.d (edit unique subnet for each worker)
+- Put executable in /opt/cni/bin
+- Create cni0 bridge
+- Script provided to do all of that (nppnet-install.sh - must be edited)
+
+Sample activities:
+
+- Run pods and look at their info
+    - kubectl apply -f pod-configs/forexec1-node1.yaml
+    - kubectl get pods -o wide
+    - kubectl describe pod forexec1
+- Test connectivity with ping
+    - kubetcl exec -it forexec3 --ping 10.244.2.2
+- Get inside one of the nodes and look at log
+    - docker exec -it kind-worker /bin/bash
+    - cat /var/log/nppnet.log
