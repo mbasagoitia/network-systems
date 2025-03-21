@@ -71,7 +71,7 @@ Architecture:
 
 ## Terraform with GCP Example
 
-A **service account** is a special kind of account typically used by an application or compute workload, such as a Compute Engine instance, rather than a person. You can create a service account under the IAM & Admin tab -> service accounts in the Google Cloud Console. This will create a private key that you can download as JSON.
+A **service account** is a special kind of account typically used by an application or compute workload, such as a Compute Engine instance, rather than a person. You can create a service account under the IAM & Admin tab -> service accounts in the Google Cloud Console. Click on the service account and create a private key that you can download as JSON.
 
 Select a role, which determines specific permissions to run different infrastructure types. For this example we will use Compute Engine Service Agent. Go to keys, create new private key, and download it.
 
