@@ -52,6 +52,7 @@ resource "google_compute_firewall" "tf-mod3-lab1-fwrule1" {
     protocol  = "tcp"
     ports     = ["22", "1234"]
   }
+
   allow {
     protocol = "icmp"
   }
@@ -69,11 +70,42 @@ resource "google_compute_firewall" "tf-mod3-lab1-fwrule2" {
     protocol  = "tcp"
     ports     = ["22", "1234"]
   }
+
   allow {
     protocol = "icmp"
   }
   source_ranges = ["0.0.0.0/0"]
 }
+
+resource "google_compute_firewall" "vxlan1" {
+  name    = "allow-vxlan1"
+  network = "tf-mod3-lab1-network1" 
+  allow {
+    protocol = "udp"
+    ports    = ["50000"]
+  }
+
+  direction = "INGRESS"
+  source_ranges = ["0.0.0.0/0"]
+
+  priority = 1000
+}
+
+resource "google_compute_firewall" "vxlan2" {
+  name    = "allow-vxlan2"
+  network = "tf-mod3-lab1-network2"
+
+  allow {
+    protocol = "udp"
+    ports    = ["50000"]
+  }
+
+  direction = "INGRESS"
+  source_ranges = ["0.0.0.0/0"]
+
+  priority = 1000
+}
+
 
 // Create a VM, and put it inside of subnet1
 // https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance
@@ -102,7 +134,7 @@ resource "google_compute_instance" "tf-mod3-lab1-vm1" {
 resource "google_compute_instance" "tf-mod3-lab1-vm2" {
   name = "tf-mod3-lab1-vm2"
   machine_type = "e2-micro"
-  zone = "us-east1-a"  
+  zone = "us-east1-b"  
   depends_on = [google_compute_network.tf-mod3-lab1-network2, google_compute_subnetwork.tf-mod3-lab1-subnet2]
   network_interface {
     network = "tf-mod3-lab1-network2"
@@ -118,6 +150,41 @@ resource "google_compute_instance" "tf-mod3-lab1-vm2" {
     startup-script = "sudo apt update; sudo apt -y install netcat-traditional ncat;"
   }
 
+}
+
+resource "google_compute_network_peering" "tf-mod3-lab1-peering1" {
+  name         = "tf-mod3-lab1-peering1"
+  network      = google_compute_network.tf-mod3-lab1-network1.self_link
+  peer_network = google_compute_network.tf-mod3-lab1-network2.self_link
+}
+
+resource "google_compute_network_peering" "tf-mod3-lab1-peering2" {
+  name         = "tf-mod3-lab1-peering2"
+  network      = google_compute_network.tf-mod3-lab1-network2.self_link
+  peer_network = google_compute_network.tf-mod3-lab1-network1.self_link
+}
+
+resource "google_compute_router" "cloud-router" {
+  name    = "cloud-router"
+  region  = google_compute_subnetwork.tf-mod3-lab1-subnet2.region
+  network = google_compute_network.tf-mod3-lab1-network2.id
+
+  bgp {
+    asn = 64514
+  }
+}
+
+resource "google_compute_router_nat" "cloud-router-nat" {
+  name                               = "cloud-router-nat"
+  router                             = google_compute_router.cloud-router.name
+  region                             = google_compute_router.cloud-router.region
+  nat_ip_allocate_option             = "AUTO_ONLY"
+  source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
+
+  log_config {
+    enable = true
+    filter = "ERRORS_ONLY"
+  }
 }
 
 //terraform show -json | jq
