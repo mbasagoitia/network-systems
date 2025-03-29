@@ -2,7 +2,7 @@
 
 Control plane:
 
-- Scheduler: waits for newly created pods (API server watch) then assigns a node to each new pod. Does not instruct the selected node to run the pod.
+- Scheduler: waits for newly created pods (API server watch) then assigns each new pod to a node. Does not instruct the selected node to run the pod.
     - Basic operation:
         - filter: finds the set of nodes where it's feasible to schedule the pod (label, up/down status)
         - score: ranks the remaining nodes to choose the most suitable pod placement
