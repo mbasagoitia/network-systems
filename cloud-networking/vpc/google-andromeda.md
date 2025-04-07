@@ -9,7 +9,7 @@ Goals:
 - Performance and isolation
     - High throughput and low latency, regardless of the actions of other tenants
 - Velocity
-    - Quickyl develop and deploy new features and performance improvements
+    - Quickly develop and deploy new features and performance improvements
 - Scalability
     - Large networks, many tenants, rapid provisioning
 

@@ -21,7 +21,7 @@ Inter-datacenter WAN is a critical, expensive resource (subsea fiberoptic cables
 
 Centralized Swan controller implements:
 
-- **Traffic demand**; can tell individual hosts (controls packet forwarding on each host) to do rate limiting (control over bandwith allocation)
+- **Traffic demand**: can tell individual hosts (controls packet forwarding on each host) to do rate limiting (control over bandwith allocation)
 
 - **Topology and traffic** information is received, and programs individual flows of traffic to be able to directly control forwarding within WAN
 

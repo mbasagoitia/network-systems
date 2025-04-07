@@ -8,7 +8,7 @@ Networking is still focused on mastering complexity
 - Little emphasis on extracting simplicity from control plane
 - No recognition that there's a difference
 
-Extracting simplicity build intellectual foundations
+Extracting simplicity builds intellectual foundations
 - Necessary for creating a discipline
 - That's why networking lags behind
 

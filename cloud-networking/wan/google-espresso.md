@@ -18,7 +18,7 @@ Peering edge requires interoperability with heterogeneous peers
 ## Design Principles
 
 1. Hierarchical control plane
-    - Global optimization while local control plane provide fast reaction
+    - Global optimization while local control plane provides fast reaction
 2. Fail static
     - Local control plane continues to function without global controller failure
 3. Software programmability
